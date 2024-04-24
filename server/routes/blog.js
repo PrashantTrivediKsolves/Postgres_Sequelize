@@ -42,25 +42,37 @@ const routerblog = express.Router();
 
 
 import express from 'express';
+
 import protectRoute from '../middlewares/protectRoute.js';
 
 import { newblogModel } from "../postgres/blog.js";
 
-
-
-
 routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
+
   try {
+
     const { title, content } = req.body;
 
     const newPost = await newblogModel.create({ title, content, userId: req.user.id });
 
     res.status(201).json(newPost);
+
   } catch (error) {
     console.error('Error creating post:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
+routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
+    try{
+        const userId=req.user.id;
+        const userBlogs = await newblogModel.findAll({ where: { userId } });
+        res.json(userBlogs);
+    }
+    catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
 
 export default routerblog;
