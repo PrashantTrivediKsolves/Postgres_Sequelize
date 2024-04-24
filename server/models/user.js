@@ -1,6 +1,6 @@
 import { BelongsTo, DataTypes, ENUM } from "sequelize";
+import bcrypt from 'bcrypt';
 export const userModel = async (sequelize) => {
-
     const User = sequelize.define('user', {
         id:{
             type:DataTypes.UUID,
@@ -21,6 +21,10 @@ export const userModel = async (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+    });
+    User.beforeCreate(async (user) => {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        user.password = hashedPassword;
     });
     return User;
 

@@ -18,7 +18,9 @@ export const contactModel = async (sequelize) => {
     }
 );
 const User=await userModel(sequelize);
-User.hasOne(Contact);
+User.hasOne(Contact,{
+    
+});
 Contact.belongsTo(User);
     return Contact;
 };

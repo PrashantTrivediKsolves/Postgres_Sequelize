@@ -54,7 +54,7 @@ router.post('/createBlog', async (req, res) => {
 router.get('/getblogsOfUser/:username',async(req,res)=>
 {
     //http://localhost:8001/getblogsOfUser/prashant trivedi
-
+    
     try{
         const username = req.params.username;
         const user =await newuserModel.findOne({where:{username}});
@@ -68,16 +68,15 @@ router.get('/getblogsOfUser/:username',async(req,res)=>
     catch (error) {
         console.error('Error :getting blogs ', error);
         res.status(500).json({ error: 'Internal server error' });
-
     }
 })
 
-
-// many to many relationship.....
+// many to many relationship..............
 
 // route for actors......
 router.post('/actors', async (req, res) => {
     try {
+
         const { name } = req.body;
 
         // Create a new actor
@@ -116,7 +115,7 @@ router.post('/actors/:actorId/movies/:movieId', async (req, res) => {
 
         // Create a new entry in ActorMovie to associate the actor with the movie
         await ActorMovie.create({ actorId, movieId });
-
+        
         res.status(201).json({ message: 'Actor associated with movie successfully' });
     } catch (error) {
         console.error('Error associating actor with movie:', error);

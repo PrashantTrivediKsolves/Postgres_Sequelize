@@ -3,6 +3,7 @@ import { DataTypes } from "sequelize";
 import { userModel } from "./user.js";
 
 export const blogModel = async (sequelize) => {
+
     const Blog = sequelize.define('blog', {
         id: {
             type: DataTypes.UUID,
@@ -18,7 +19,7 @@ export const blogModel = async (sequelize) => {
             allowNull: false
         }
     });
-    
+
     // Define association with user model (belongsTo relationship)
     const User = await userModel(sequelize); // Get the User 
     User.hasMany(Blog);

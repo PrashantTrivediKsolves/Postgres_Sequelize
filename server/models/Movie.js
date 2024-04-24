@@ -7,6 +7,11 @@ export const MovieModel = async (sequelize) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
+        // movieId: {
+        //     type: DataTypes.INTEGER,
+        //     primaryKey: true,
+        //     autoIncrement: true
+        // },
         title: {
             type: DataTypes.STRING,
             allowNull: false

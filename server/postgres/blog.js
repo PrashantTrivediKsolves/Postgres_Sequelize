@@ -17,6 +17,7 @@ const sequelize = new Sequelize('Association', 'postgres', '123456', {
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
+      
   }
   export {
     connectionblog,
