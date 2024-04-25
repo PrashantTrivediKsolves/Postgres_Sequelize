@@ -54,14 +54,16 @@ routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
     const { title, content } = req.body;
 
     const newPost = await newblogModel.create({ title, content, userId: req.user.id });
-
     res.status(201).json(newPost);
 
   } catch (error) {
     console.error('Error creating post:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+
   }
 });
+
+// it will give the logged user blogs....
 
 routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
     try{
@@ -73,6 +75,19 @@ routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
         console.error('Error logging in:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+})
+
+//it will give the all blogs of the table...
+
+routerblog.get('/All_blogs',async(req,res)=>{
+  try{
+      const All_Blogs = await newblogModel.findAll({ });
+      res.json(All_Blogs);
+  }
+  catch (error) {
+      console.error('Error logging in:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
 })
 
 export default routerblog;

@@ -20,8 +20,7 @@ export const blogModel = async (sequelize) => {
         }
     });
 
-    // Define association with user model (belongsTo relationship)
-    const User = await userModel(sequelize); // Get the User 
+    const User = await userModel(sequelize); 
     User.hasMany(Blog);
     Blog.belongsTo(User); // Each blog belongs to one user
 

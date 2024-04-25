@@ -40,7 +40,7 @@ routeruser.post('/signup', async (req, res) => {
         const token = jwt.sign(
             { id: user.id, email: user.email},
             JWT_SECRET, 
-            { expiresIn: '1h' } 
+            // { expiresIn: '1h' } 
         );
         res.cookie('token', token, {
           httpOnly: true, 

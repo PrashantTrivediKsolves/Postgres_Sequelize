@@ -17,6 +17,7 @@ app.get("/",(req,res)=>
 {
     res.send("App is running now");
 })
+
 app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,20 +25,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
+
 app.use(router);
+
 app.use(routeruser)
+
 app.use(routerblog)
+
 app.listen(PORT,()=>
 {
     console.log(`server is running at port ${PORT}`);
 })
 
 connectionUser();
+
 connectionblog();
+
 connectionContact();
 
-// for  many to many  Associations
+// for Many to Many  Associations..............
 
 connectionActor();
+
 connectionMovie();
+
 connectionActorMovie();
