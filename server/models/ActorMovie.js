@@ -13,7 +13,7 @@ export const ActorMovieModel = async (sequelize) => {
         movieId: {
             type: DataTypes.UUID,
             primaryKey: true
-        }
+        }   
     });
     const Actor=await ActorModel(sequelize);
     const Movie=await MovieModel(sequelize);

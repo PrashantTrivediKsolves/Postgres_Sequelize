@@ -1,29 +1,25 @@
 import { Sequelize } from "sequelize";
 
-import {ActorMovieModel} from "../models/ActorMovie.js";
+import { LikeModel } from "../models/Like.js";
 
 const sequelize = new Sequelize('Association', 'postgres', '123456', {
     host: 'localhost',
     dialect:'postgres'
   });
-
-  let newActorMovieModel=null;
-
-  const connectionActorMovie=async()=>
+  let newLikeModel=null;
+  const connectionlike=async()=>
   {
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
-        newActorMovieModel=await ActorMovieModel(sequelize);
+        newLikeModel=await LikeModel(sequelize);
         await sequelize.sync();
-        console.log("Database created ActorMovie");
+        console.log("Database created Like");
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
   }
-  
   export {
-    connectionActorMovie,
-    newActorMovieModel,
+    connectionlike,
+    newLikeModel,
   }
-

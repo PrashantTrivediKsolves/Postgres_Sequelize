@@ -5,9 +5,13 @@ import { connectionContact } from './postgres/contactInfo.js';
 import { connectionActor } from './postgres/Actor.js';
 import { connectionMovie } from './postgres/Movie.js';
 import { connectionActorMovie } from './postgres/ActorMovie.js';
+import { connectionlike } from './postgres/Like.js';
+import { connectionUserFollow } from './postgres/Follow.js';
 import router from './routes/createUserAndContact.js';
 import routeruser from './routes/user.js';
 import routerblog from './routes/blog.js';
+import routerlike from './routes/like.js';
+import routerfollow from './routes/Follow.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 const app=express();
@@ -32,6 +36,11 @@ app.use(routeruser)
 
 app.use(routerblog)
 
+app.use(routerlike)
+
+app.use("/follow",routerfollow)
+app.use("/unfollow",routerfollow)
+
 app.listen(PORT,()=>
 {
     console.log(`server is running at port ${PORT}`);
@@ -50,3 +59,8 @@ connectionActor();
 connectionMovie();
 
 connectionActorMovie();
+
+connectionlike();
+
+// connection user follow....
+connectionUserFollow();

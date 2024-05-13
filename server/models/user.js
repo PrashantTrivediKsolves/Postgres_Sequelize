@@ -26,6 +26,10 @@ export const userModel = async (sequelize) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         user.password = hashedPassword;
     });
+    // many-to-many => belongsToMany;
+    // User.belongsToMany(User,{as:"User",foreignKey:"userIdkey",through:"Follow"});
+    // User.belongsToMany(User,{as:"Followed",foreignKey:"FollowId",through:"Follow"});
+
     return User;
 
 }

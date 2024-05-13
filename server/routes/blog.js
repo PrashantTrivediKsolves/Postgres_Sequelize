@@ -48,7 +48,7 @@ import protectRoute from '../middlewares/protectRoute.js';
 import { newblogModel } from "../postgres/blog.js";
 
 routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
-
+  
   try {
 
     const { title, content } = req.body;
