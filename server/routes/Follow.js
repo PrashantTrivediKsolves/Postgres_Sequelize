@@ -29,9 +29,9 @@ routerfollow.post('/:userIdkey', async (req, res) => {
       if (!userToFollow) {
         return res.status(404).json({ message: 'User to follow not found' });
       }
-  
+
     //   Check if the follower is already following the user..........
-      
+
       const existingFollow = await newUserFollowModel.findOne({
         where: {
           userIdkey:userIdkey,
@@ -42,12 +42,13 @@ routerfollow.post('/:userIdkey', async (req, res) => {
       if (existingFollow) {
         return res.status(400).json({ message: 'User is already being followed' });
       }
+
       // Create a new follow relationship
       await newUserFollowModel.create({
         userIdkey: userIdkey,
         FollowId: FollowId
       });
-  
+      
       res.status(200).json({ message: 'User followed successfully' });
     } catch (error) {
       console.error(error);
@@ -93,6 +94,7 @@ routerfollow.post('/:userIdkey', async (req, res) => {
     await existingFollow.destroy();
 
     res.status(200).json({ message: 'User unfollowed successfully' });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -100,3 +102,6 @@ routerfollow.post('/:userIdkey', async (req, res) => {
 });
   
 export default routerfollow;
+
+
+//https://chatgpt.com/c/b9bba94d-bce8-489b-b439-3f433c9fddfa
