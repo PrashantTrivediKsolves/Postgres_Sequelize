@@ -31,6 +31,19 @@ routercomment.get('/getAllCommentOnPost/:postId',async(req,res)=>{
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+// comments on the perticular logged user
+routercomment.get('/getAllCommentOnPost/:postId/:userId',async(req,res)=>{
+    try{
+        const {postId,userId}=req.params;
+        const userComments = await newcommentModel.findAll({ where: { blogId:postId,userId:userId} });
+        res.json(userComments);
+    }
+    catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
 
 
 
