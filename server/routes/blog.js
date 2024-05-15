@@ -52,18 +52,18 @@ routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
   try {
 
     const { title, content } = req.body;
-
+    
     const newPost = await newblogModel.create({ title, content, userId: req.user.id });
     res.status(201).json(newPost);
 
   } catch (error) {
     console.error('Error creating post:', error);
     res.status(500).json({ error: 'Internal Server Error' });
-
   }
+
 });
 
-// it will give the logged user blogs....
+// it will give the logged user blogs..........
 
 routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
     try{

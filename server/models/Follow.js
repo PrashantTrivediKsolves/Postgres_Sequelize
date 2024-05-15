@@ -3,6 +3,7 @@ import { DataTypes } from "sequelize";
 import { userModel } from "./user.js";
 
 export const UserFollowModel = async (sequelize) => {
+
     const userFollow = sequelize.define('Follow', {
         userIdkey: {
             type: DataTypes.UUID,
@@ -13,6 +14,7 @@ export const UserFollowModel = async (sequelize) => {
             primaryKey: true
         }   
     });
+    
     const User=await userModel(sequelize);
     User.belongsToMany(User,{as:"User",foreignKey:"userIdkey",through:"Follow"});
     User.belongsToMany(User,{as:"Followed",foreignKey:"FollowId",through:"Follow"});
