@@ -12,7 +12,7 @@ import {newuserModel} from '../postgres/user.js';
 import { where } from 'sequelize';
 
 routeruser.post('/signup', async (req, res) => {
-
+  
     try {
       const { username, email,password} = req.body;
       const newUser = await newuserModel.create({ username, email,password});
@@ -86,7 +86,7 @@ routeruser.get("/:userId",async(req,res)=>
 
 routeruser.get('/logout', (req, res) => {
   try {
-    
+
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
