@@ -40,6 +40,7 @@ app.use(routerlike)
 
 app.use("/follow",routerfollow)
 app.use("/unfollow",routerfollow)
+app.use("/profile",routeruser);
 
 app.listen(PORT,()=>
 {

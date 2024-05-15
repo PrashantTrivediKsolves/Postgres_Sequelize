@@ -9,8 +9,10 @@ const JWT_SECRET = 'your-secret-key';
 import bcrypt from 'bcrypt';
 
 import {newuserModel} from '../postgres/user.js';
+import { where } from 'sequelize';
 
 routeruser.post('/signup', async (req, res) => {
+
     try {
       const { username, email,password} = req.body;
       const newUser = await newuserModel.create({ username, email,password});
@@ -25,9 +27,8 @@ routeruser.post('/signup', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await newuserModel.findOne({ where: { email } });
-        
-        if (!user) {
 
+        if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
@@ -61,15 +62,38 @@ routeruser.post('/signup', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+routeruser.get("/:userId",async(req,res)=>
+{
+  const { userId } = req.params;
+
+  try {
+    // Query the database to find the user by userId
+    const user = await newuserModel.findOne({where:{id:userId}});
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    // Return the user data as JSON response..........
+
+    res.status(200).json(user);
+
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+});
 
 routeruser.get('/logout', (req, res) => {
   try {
-
+    
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error logging out:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+
 });
+
 export default routeruser;
