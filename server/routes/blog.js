@@ -1,6 +1,6 @@
 //import express from "express";
 
-const routerblog = express.Router();
+
 
 // import { newblogModel } from "../postgres/blog.js";
 // import protectRoute from "../middlewares/protectRoute.js";
@@ -42,10 +42,12 @@ const routerblog = express.Router();
 
 
 import express from 'express';
+const routerblog = express.Router();;
 
 import protectRoute from '../middlewares/protectRoute.js';
 
 import { newblogModel } from "../postgres/blog.js";
+
 
 routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
   
@@ -63,13 +65,15 @@ routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
 
 });
 
-// it will give the logged user blogs..........
+// it will give the logged user blogs.....................
 
 routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
     try{
         const userId=req.user.id;
+        console.log(userId);
         const userBlogs = await newblogModel.findAll({ where: { userId } });
         res.json(userBlogs);
+
     }
     catch (error) {
         console.error('Error logging in:', error);
@@ -81,7 +85,7 @@ routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
 
 routerblog.get('/All_blogs',async(req,res)=>{
   try{
-      const All_Blogs = await newblogModel.findAll({ });
+      const All_Blogs = await newblogModel.findAll({});
       res.json(All_Blogs);
   }
   catch (error) {

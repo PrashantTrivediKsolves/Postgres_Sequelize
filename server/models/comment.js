@@ -28,6 +28,9 @@ export const commentModel = async (sequelize) => {
     comment.belongsTo(blog); // Each blog can have multiple comment.........
 
     // also user can have multiple comments.....
+    
+    // one user can do multiple comment on the perticular post...
+
     user.hasMany(comment);
 
     comment.belongsTo(user);

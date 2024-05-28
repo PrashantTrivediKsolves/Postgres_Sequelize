@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize";
 import { blogModel } from "./blog.js";
 
 export const LikeModel = async (sequelize) => {
-
+  
     const Like = sequelize.define('Like',
     {
       userId: {

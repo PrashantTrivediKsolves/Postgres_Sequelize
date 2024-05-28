@@ -9,10 +9,10 @@ const JWT_SECRET = 'your-secret-key';
 import bcrypt from 'bcrypt';
 
 import {newuserModel} from '../postgres/user.js';
+
 import { where } from 'sequelize';
 
 routeruser.post('/signup', async (req, res) => {
-  
     try {
       const { username, email,password} = req.body;
       const newUser = await newuserModel.create({ username, email,password});
@@ -39,7 +39,7 @@ routeruser.post('/signup', async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign(
-            { id: user.id, email: user.email},
+            { id: user.id, email: user.email,username:user.username},
             JWT_SECRET, 
             // { expiresIn: '1h' } 
         );
@@ -62,31 +62,30 @@ routeruser.post('/signup', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-routeruser.get("/:userId",async(req,res)=>
-{
-  const { userId } = req.params;
+// routeruser.get("/:userId",async(req,res)=>
+// {
+//   const { userId } = req.params;
 
-  try {
-    // Query the database to find the user by userId
-    const user = await newuserModel.findOne({where:{id:userId}});
+//   try {
+//     // Query the database to find the user by userId
+//     const user = await newuserModel.findOne({where:{id:userId}});
 
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    // Return the user data as JSON response..........
+//     if (!user) {
+//       return res.status(404).json({ error: 'User not found' });
+//     }
+//     // Return the user data as JSON response..........
 
-    res.status(200).json(user);
+//     res.status(200).json(user);
 
-  } catch (err) {
-    console.error('Error fetching user:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+//   } catch (err) {
+//     console.error('Error fetching user:', err);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
 
-});
+// });
 
 routeruser.get('/logout', (req, res) => {
   try {
-
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
