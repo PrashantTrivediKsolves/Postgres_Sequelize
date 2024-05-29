@@ -30,7 +30,7 @@ export const newBlogModelFile = async (sequelize) => {
     const User = await userModel(sequelize);
     User.hasMany(blogFile);
     blogFile.belongsTo(User); // Each blog belongs to one user
-
+    
     return blogFile; // Return the actual model instance
 
 };

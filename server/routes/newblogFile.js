@@ -5,6 +5,9 @@ import multer from 'multer';
 
 import { newblogModelFile } from '../postgres/blogsWithFile.js'; // Adjusted import...
 
+
+import protectRoute from '../middlewares/protectRoute.js';
+
 const routerBlogFile = express.Router();
 
 const storage = multer.diskStorage({
@@ -21,7 +24,7 @@ const upload = multer({ storage: storage });
 
 routerBlogFile.post('/upload', upload.single('file'),async (req, res) => {
     try {
-        const { title, content } = req.body;
+        const { title, content ,userId} = req.body;
         console.log("I am in upload post route");
         console.log(title);
 
@@ -32,18 +35,28 @@ routerBlogFile.post('/upload', upload.single('file'),async (req, res) => {
         const { originalname, path } = req.file;
         console.log(req.file);
 
-
-
         // Create a new record in the 'files' table using Sequelize
         // console.log(req.user);
-        const newFile = await newblogModelFile.create({ title, content, name: originalname, path});
+        const newFile = await newblogModelFile.create({ title, content, name: originalname, path,userId});
         res.json(newFile);
     } catch (err) {
         console.error('Error uploading file:', err);
         res.status(500).json({ message: 'File upload failed' });
     }
 });
+routerBlogFile.get('/getAllTheBlogsOfThatUser/:userId',async(req,res)=>{
+    try{
+        const {userId}=req.params;
+        console.log(userId);
+        const userBlogs = await newblogModelFile.findAll({ where: { userId } });
+        res.json(userBlogs);
 
+    }
+    catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
 routerBlogFile.get('/uploads', async (req, res) => {
     try {
         const files = await newblogModelFile.findAll({});
@@ -53,5 +66,7 @@ routerBlogFile.get('/uploads', async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch files' });
     }
 });
+
+
 
 export default routerBlogFile;
