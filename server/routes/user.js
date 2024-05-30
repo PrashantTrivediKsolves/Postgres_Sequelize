@@ -11,11 +11,31 @@ import bcrypt from 'bcrypt';
 import {newuserModel} from '../postgres/user.js';
 
 import { where } from 'sequelize';
+import multer from 'multer';
+const storage = multer.diskStorage({
+    
+  destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.originalname);
+  }
+});
+const upload = multer({ storage: storage });
 
-routeruser.post('/signup', async (req, res) => {
+routeruser.post('/signup',upload.single('file'), async (req, res) => {
+
     try {
       const { username, email,password} = req.body;
-      const newUser = await newuserModel.create({ username, email,password});
+      if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const { originalname, path } = req.file;
+
+    console.log(req.file);
+
+      const newUser = await newuserModel.create({ username, email,password,name:originalname,path});
       res.status(201).json(newUser);
     } catch (error) {
       console.error('Error creating user:', error);
@@ -24,6 +44,7 @@ routeruser.post('/signup', async (req, res) => {
   });
 
   routeruser.post('/login', async (req, res) => {
+
     const { email, password } = req.body;
     try {
         const user = await newuserModel.findOne({ where: { email } });
@@ -84,6 +105,14 @@ routeruser.post('/signup', async (req, res) => {
 
 // });
 
+
+routeruser.get("/all-users",async(req,res)=>
+{
+  const All_users = await newuserModel.findAll({});
+  res.json(All_users);
+})
+
+
 routeruser.get('/logout', (req, res) => {
   try {
     res.clearCookie('token');
@@ -92,7 +121,7 @@ routeruser.get('/logout', (req, res) => {
     console.error('Error logging out:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-
 });
+
 
 export default routeruser;

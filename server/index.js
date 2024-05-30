@@ -25,6 +25,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
 import bodyParser from 'body-parser';
+import { UserFollowModel } from './models/Follow.js';
+
 
 const app=express();
 app.use(cors({
@@ -36,7 +38,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 app.get("/",(req,res)=>
 {
-    res.send("App is running now");
+    res.send("App is running now........");
 })
 app.use(express.json());
 
@@ -49,16 +51,19 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(router);
-
+// app.use("/profile",routeruser);
 app.use(routeruser)
 
-app.use(routerblog)
+// app.use(routerblog)
 
 app.use(routerlike)
 
 app.use("/follow",routerfollow)
-app.use("/unfollow",routerfollow)
+// app.use("/unfollow",routerfollow)
+
+// app.use(routerfollow);
 app.use("/profile",routeruser);
+
 app.use(routercomment);
 app.use(routerBlogFile);
 

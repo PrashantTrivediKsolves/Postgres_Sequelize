@@ -1,7 +1,5 @@
 //import express from "express";
 
-
-
 // import { newblogModel } from "../postgres/blog.js";
 // import protectRoute from "../middlewares/protectRoute.js";
 // routerblog.post("/createBlog/:id", async (req, res) => {
@@ -81,9 +79,10 @@ routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
     }
 })
 
-//it will give the all blogs of the table...
+//it will give the all blogs of the table......
 
 routerblog.get('/All_blogs',async(req,res)=>{
+  
   try{
       const All_Blogs = await newblogModel.findAll({});
       res.json(All_Blogs);

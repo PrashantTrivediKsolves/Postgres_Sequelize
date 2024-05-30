@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 import {ActorMovieModel} from "../models/ActorMovie.js";
 
-const sequelize = new Sequelize('Association', 'postgres', '123456', {
+const sequelize = new Sequelize('newBlogDemo', 'postgres', '123456', {
     host: 'localhost',
     dialect:'postgres'
   });

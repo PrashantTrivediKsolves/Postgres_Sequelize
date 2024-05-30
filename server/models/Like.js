@@ -18,6 +18,7 @@ export const LikeModel = async (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true // true for like, false for dislike
       }});
+      
     // has many relationship bitween the blog and like model...........
     // const Blog = await blogModel(sequelize);
     // Blog.hasMany(Like);
