@@ -58,11 +58,11 @@ app.use(routeruser)
 
 app.use(routerlike)
 
-app.use("/follow",routerfollow)
+// app.use("/follow",routerfollow)
 // app.use("/unfollow",routerfollow)
 
-// app.use(routerfollow);
-app.use("/profile",routeruser);
+app.use(routerfollow);
+// app.use("/profile",routeruser);
 
 app.use(routercomment);
 app.use(routerBlogFile);

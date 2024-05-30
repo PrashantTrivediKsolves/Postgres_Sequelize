@@ -83,28 +83,27 @@ routeruser.post('/signup',upload.single('file'), async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-// routeruser.get("/:userId",async(req,res)=>
-// {
-//   const { userId } = req.params;
+routeruser.get("/profile/:userId",async(req,res)=>
+{
+  const { userId } = req.params;
 
-//   try {
-//     // Query the database to find the user by userId
-//     const user = await newuserModel.findOne({where:{id:userId}});
+  try {
+    // Query the database to find the user by userId
+    const user = await newuserModel.findOne({where:{id:userId}});
 
-//     if (!user) {
-//       return res.status(404).json({ error: 'User not found' });
-//     }
-//     // Return the user data as JSON response..........
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    // Return the user data as JSON response..........
 
-//     res.status(200).json(user);
+    res.status(200).json(user);
 
-//   } catch (err) {
-//     console.error('Error fetching user:', err);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 
-// });
-
+});
 
 routeruser.get("/all-users",async(req,res)=>
 {

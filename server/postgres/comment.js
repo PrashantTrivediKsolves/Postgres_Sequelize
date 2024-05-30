@@ -13,7 +13,7 @@ const sequelize = new Sequelize('newBlogDemo', 'postgres', '123456', {
         console.log('Connection has been established successfully.');
         newcommentModel=await commentModel(sequelize);
         await sequelize.sync();
-        console.log("Database created comment");
+        console.log("Database created comment successFUlly");
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
