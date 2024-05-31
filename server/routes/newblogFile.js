@@ -44,7 +44,7 @@ routerBlogFile.post('/upload', upload.single('file'),async (req, res) => {
         res.status(500).json({ message: 'File upload failed' });
     }
 });
-routerBlogFile.get('/getAllTheBlogsOfThatUser/:userId',async(req,res)=>{
+routerBlogFile.get('/getAllTheBlogsOfUser/:userId',async(req,res)=>{
     try{
         const {userId}=req.params;
         console.log(userId);

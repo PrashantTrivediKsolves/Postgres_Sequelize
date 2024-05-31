@@ -108,6 +108,28 @@ routerfollow.post('/follow/:userIdkey', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+routerfollow.get("/followlersUser",async (req,res)=>
+  {
+    const followlers=await newUserFollowModel.findAll({});
+    res.json(followlers);
+  
+  })
+
+routerfollow.get("/followlers/:userIdkey",async (req,res)=>
+{
+  const {userIdkey}=req.params;
+  const followlers=await newUserFollowModel.findAll({where:{userIdkey:userIdkey}});
+  res.json(followlers);
+
+})
+routerfollow.get("/userfollowlers/:FollowId",async (req,res)=>
+  {
+    const {FollowId}=req.params;
+    const followlers=await newUserFollowModel.findAll({where:{FollowId:FollowId}});
+    res.json(followlers);
+  
+  })
   
 export default routerfollow;
 
