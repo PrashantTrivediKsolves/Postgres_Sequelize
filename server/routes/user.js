@@ -112,6 +112,14 @@ routeruser.get("/all-users",async(req,res)=>
 })
 
 
+routeruser.get("/all-users/:searchusers",async(req,res)=>
+  {
+    const {searchusers}=req.params;
+    const All_users = await newuserModel.findAll({where :{username:searchusers}});
+    res.json(All_users);
+  })
+
+
 routeruser.get('/logout', (req, res) => {
   try {
     res.clearCookie('token');

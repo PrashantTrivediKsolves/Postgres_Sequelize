@@ -113,13 +113,12 @@ routerfollow.get("/followlersUser",async (req,res)=>
   {
     const followlers=await newUserFollowModel.findAll({});
     res.json(followlers);
-  
   })
 
 routerfollow.get("/followlers/:userIdkey",async (req,res)=>
 {
   const {userIdkey}=req.params;
-  const followlers=await newUserFollowModel.findAll({where:{userIdkey:userIdkey}});
+  const followlers=await newUserFollowModel.findAll({where:{FollowId:userIdkey}});
   res.json(followlers);
 
 })
