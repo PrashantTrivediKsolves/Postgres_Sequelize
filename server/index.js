@@ -27,12 +27,13 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import { UserFollowModel } from './models/Follow.js';
 
-
 const app=express();
+
 app.use(cors({
     origin:"http://localhost:4200",
     credentials:true
 }));
+
 const PORT=8001;
 app.use(bodyParser.json());
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -67,8 +68,6 @@ app.use(routerfollow);
 
 app.use(routercomment);
 app.use(routerBlogFile);
-
-
 
 app.listen(PORT,()=>
 {

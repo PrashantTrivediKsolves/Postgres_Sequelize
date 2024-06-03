@@ -71,7 +71,6 @@ routerblog.get('/getAllTheBlogsOfThatUser',protectRoute,async(req,res)=>{
         console.log(userId);
         const userBlogs = await newblogModel.findAll({ where: { userId } });
         res.json(userBlogs);
-
     }
     catch (error) {
         console.error('Error logging in:', error);
