@@ -65,7 +65,7 @@ routercomment.get('/getAllCommentOnPost/:postId',async(req,res)=>{
     }
 })
 
-// comments on the perticular logged user......
+// comments on the perticular logged user on perticular post......
 routercomment.get('/getAllCommentOnPost/:postId/:userId',async(req,res)=>{
     try{
         const {postId,userId}=req.params;
@@ -76,5 +76,18 @@ routercomment.get('/getAllCommentOnPost/:postId/:userId',async(req,res)=>{
         console.error('Error logging in:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+})
+routercomment.get('/getAllcomment/:userId',async(req,res)=>
+{
+  try{
+    const {userId}=req.params;
+    const AllCommentsOfPerticularUser=await newcommentModel.findAll({where:{userId:userId}});
+    res.json(AllCommentsOfPerticularUser);
+  }
+  catch(error)
+  {
+    console.log('Error logging in:',error);
+    res.status(500).json({error:'Internal Server Error'});
+  }
 })
 export default routercomment;

@@ -30,7 +30,8 @@ import { UserFollowModel } from './models/Follow.js';
 
 const app=express();
 app.use(cors({
-    origin:"*"
+    origin:"http://localhost:4200",
+    credentials:true
 }));
 const PORT=8001;
 app.use(bodyParser.json());
