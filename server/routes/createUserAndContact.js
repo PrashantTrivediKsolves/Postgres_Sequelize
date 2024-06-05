@@ -25,6 +25,8 @@ router.post('/createUserAndContact', async(req, res) => {
     } catch (error) {
         console.error('Error creating user and contact:', error);
         res.status(500).json({ error: 'Internal server error' });
+
+        // res.status(500).json({error:'Internal server error'});
     }
 });
 

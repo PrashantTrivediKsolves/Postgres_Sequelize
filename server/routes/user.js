@@ -94,6 +94,7 @@ routeruser.get("/profile/:userId",async(req,res)=>
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+
     // Return the user data as JSON response..........
 
     res.status(200).json(user);

@@ -90,4 +90,5 @@ routercomment.get('/getAllcomment/:userId',async(req,res)=>
     res.status(500).json({error:'Internal Server Error'});
   }
 })
+
 export default routercomment;

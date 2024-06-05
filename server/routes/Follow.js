@@ -129,7 +129,12 @@ routerfollow.get("/userfollowlers/:FollowId",async (req,res)=>
     res.json(followlers);
   
   })
-  
+routerfollow.get("/following/:userIdkey",async(req,res)=>
+{
+  const {userIdkey}=req.params;
+  const following=await newUserFollowModel.findAll({where:{userIdkey:userIdkey}});
+  res.json(following);
+})
 export default routerfollow;
 
 
