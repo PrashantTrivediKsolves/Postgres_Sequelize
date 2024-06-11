@@ -40,19 +40,17 @@
 
 
 import express from 'express';
-const routerblog = express.Router();;
+
+const routerblog = express.Router();
+
 
 import protectRoute from '../middlewares/protectRoute.js';
 
 import { newblogModel } from "../postgres/blog.js";
 
-
 routerblog.post('/create-blog-post', protectRoute, async (req, res) => {
-  
   try {
-
     const { title, content } = req.body;
-    
     const newPost = await newblogModel.create({ title, content, userId: req.user.id });
     res.status(201).json(newPost);
 

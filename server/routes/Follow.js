@@ -8,7 +8,7 @@ import { newuserModel } from "../postgres/user.js";
 
 import { where } from "sequelize";
 
-// POST /api/follow/:userId...
+// POST /api/follow/:userId........................................................................................
 
 routerfollow.post('/follow/:userIdkey', async (req, res) => {
 
@@ -18,17 +18,18 @@ routerfollow.post('/follow/:userIdkey', async (req, res) => {
     const { FollowId} = req.body;
 
     console.log(userIdkey);
-
+    
     try {
     //   Check if the followerId is valid and exists................
 
       const follower = await newuserModel.findOne({where:{
         id:FollowId
+
       }});
       if (!follower) {
         return res.status(404).json({ message: 'Follower not found' });
       }
-  
+
       // Check if the userId is valid and exists..................
       const userToFollow = await newuserModel.findOne({where:{
         id:userIdkey
@@ -42,7 +43,6 @@ routerfollow.post('/follow/:userIdkey', async (req, res) => {
       const existingFollow = await newUserFollowModel.findOne({
         where: {
           userIdkey:userIdkey,
-
           FollowId:FollowId
         }
       });
@@ -70,7 +70,8 @@ routerfollow.post('/follow/:userIdkey', async (req, res) => {
     console.log(userIdkey);
 
     try {
-    //   Check if the followerId is valid and exists
+    //   Check if the followerId is valid and exists.......................
+
       const follower = await newuserModel.findOne({where:{
         id:FollowId
       }});
@@ -127,14 +128,18 @@ routerfollow.get("/userfollowlers/:FollowId",async (req,res)=>
     const {FollowId}=req.params;
     const followlers=await newUserFollowModel.findAll({where:{FollowId:FollowId}});
     res.json(followlers);
-  
+    console.log(followlers);
   })
+
+
 routerfollow.get("/following/:userIdkey",async(req,res)=>
 {
   const {userIdkey}=req.params;
   const following=await newUserFollowModel.findAll({where:{userIdkey:userIdkey}});
   res.json(following);
 })
+
+
 export default routerfollow;
 
 

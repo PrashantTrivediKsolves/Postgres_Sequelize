@@ -30,18 +30,35 @@ import { UserFollowModel } from './models/Follow.js';
 const app=express();
 
 app.use(cors({
+  
     origin:"http://localhost:4200",
+
     credentials:true
 }));
 
 const PORT=8001;
+
 app.use(bodyParser.json());
+
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 app.get("/",(req,res)=>
 {
     res.send("App is running now........");
 })
+app.get("/loginuser", async (req, res) => {
+    console.log("Login successful");
+  
+    // Redirect to the dashboard
+    res.redirect("http://localhost:4200/home");
+  });
+  
+  app.post("/loginuser", async (req, res) => {
+    console.log(req.body);
+  
+    // Redirect to the dashboard after login
+    res.redirect("http://localhost:4200/home");
+  });
 app.use(express.json());
 
 
@@ -67,6 +84,7 @@ app.use(routerfollow);
 // app.use("/profile",routeruser);
 
 app.use(routercomment);
+
 app.use(routerBlogFile);
 
 app.listen(PORT,()=>
@@ -80,7 +98,7 @@ connectionblog();
 
 connectionContact();
 
-// for Many to Many  Associations..............
+// for Many to Many  Associations.........................
 
 connectionActor();
 

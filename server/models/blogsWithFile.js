@@ -4,6 +4,7 @@ import { userModel } from "./user.js";
 
 export const newBlogModelFile = async (sequelize) => {
     const blogFile = sequelize.define('file', {
+        
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
